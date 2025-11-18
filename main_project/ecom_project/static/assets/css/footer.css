@@ -1,0 +1,95 @@
+/* Footer styles: spacing, typography, responsive tweaks */
+#site-footer {
+  padding: 48px 0; /* generous vertical padding */
+  background: #111318; /* slightly darker than bootstrap-dark */
+  color: #e6e6e6;
+  font-size: 14px;
+}
+
+#site-footer h5 {
+  color: #ffffff;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+#site-footer ul.list-unstyled {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+#site-footer ul.list-unstyled li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: #cfcfcf;
+}
+
+#site-footer .form-control {
+  background: #23272b;
+  border: 1px solid #2f3336;
+  color: #fff;
+}
+
+
+#site-footer .btn-warning {
+  background-color: #ffb400;
+  border-color: #ffb400;
+  color: #111;
+}
+
+#site-footer p.small {
+  color: #bdbdbd;
+}
+
+#site-footer .contact-item {
+  margin-bottom: 6px;
+}
+
+#site-footer .bottom-row {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 24px;
+  padding-top: 18px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767.98px) {
+  #site-footer {
+    padding: 28px 0;
+  }
+  #site-footer .text-md-end {
+    text-align: left !important;
+    margin-top: 12px;
+  }
+}
+
+/* Utility helpers */
+.inline-payments {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.inline-payments img {
+  height: 28px;
+  opacity: 0.95;
+}
+
+
+  .auto-btn1,
+  .auto-btn2,
+  .auto-btn3,
+  .auto-btn4 {
+    width: 15px;
+    height: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: 0.3s;
+  }
+
+  .auto-btn1:hover,
+  .auto-btn2:hover,
+  .auto-btn3:hover,
+  .auto-btn4:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }

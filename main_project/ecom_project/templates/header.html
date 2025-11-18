@@ -1,0 +1,88 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<!-- Main Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+      <img src="{% static 'assets/images/logo/logo4.png' %}" alt="logo" class="me-2" style="height:45px; width:72px; object-fit:cover;">
+      <span class="brand-text">Gaav-Ka-Swaad</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'placeorder'%}">My Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+
+      <form class="d-flex align-items-center me-3" role="search" action="{% url 'index' %}" method="get">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Search products" aria-label="Search" name="q">
+        <button class="btn btn-outline-light btn-sm" type="submit">Search</button>
+      </form>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item me-2">
+          <a class="nav-link position-relative" href="{% url 'cartt' %}">
+            <i class="bi bi-cart3"></i> Cart
+            <span class="badge bg-warning text-dark rounded-pill ms-1">{{n}}</span>
+          </a>
+        </li>
+        <li class="nav-item me-2">
+           {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ Sub Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-top border-bottom">
+  <div class="container justify-content-center">
+    <ul class="navbar-nav text-uppercase fw-semibold small">
+      <li class="nav-item">
+        <a class="nav-link px-3 text-dark" href="#">All Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 text-dark" href="https://www.everestspices.com/tasteeto/">Advance Range</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 text-dark" href="https://suhana.com/?srsltid=AfmBOop2ZP5hcu5ZprAJzEghhQNoWwKmYjb3BeMUWngPDbdeSrnOsdkN">Stores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 text-dark" href="{% url 'add_ingredient' %}">Add Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 text-dark" href="#">Authenticity</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 text-dark" href="#">Chat Support</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 text-dark" href="#">Business Enquiry</a>
+      </li>
+    </ul>
+  </div>
+</nav>

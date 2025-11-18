@@ -1,0 +1,121 @@
+.btn-btn-info{
+    background-color: blueviolet;
+}
+
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f1f1f1;
+  }
+
+  .slider {
+    width: 80%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .slides {
+    width: 500%;
+    height: 100%;
+    display: flex;
+  }
+
+  .slide {
+    width: 20%;
+    height: 100%;
+    transition: 0.6s;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .first {
+    margin-left: 0;
+  }
+
+  #img-2:checked ~ .slides .first {
+    margin-left: -20%;
+  }
+
+  #img-3:checked ~ .slides .first {
+    margin-left: -40%;
+  }
+
+  #img-4:checked ~ .slides .first {
+    margin-left: -60%;
+  }
+
+  .navigation-auto {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .auto-btn1,
+  .auto-btn2,
+  .auto-btn3,
+  .auto-btn4 {
+    width: 15px;
+    height: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: 0.3s;
+  }
+
+  .auto-btn1:hover,
+  .auto-btn2:hover,
+  .auto-btn3:hover,
+  .auto-btn4:hover {
+    background-color: rgba(255, 255, 2)
+  }
+
+
+  /* Compact card variant - minimal padding and tighter text */
+  .card-compact {
+    padding: 6px !important;
+    font-size: 0.88rem;
+  }
+  .card-compact .card-img-top {
+    height: 60px;
+    object-fit: cover;
+  }
+  .card-compact .card-body {
+    padding: 6px 4px;
+  }
+  .card-compact .card-title {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+  .card-compact .card-text {
+    margin-bottom: 4px;
+  }
+  .card-compact .card-footer {
+    padding: 6px 4px;
+  }
+
+  @media (max-width: 576px) {
+    .card-compact .card-img-top { height: 90px; }
+  }
+
+
+

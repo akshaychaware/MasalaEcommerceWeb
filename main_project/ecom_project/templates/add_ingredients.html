@@ -1,0 +1,172 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block main %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Ingredient</title>
+  
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  <link href="{% static '/css/styles.css'%}" rel="stylesheet">
+
+  <!-- Bootstrap CSS & Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url("{% static 'assets/images/bg/OIP.webp' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45); /* dark layer */
+    z-index: -1;
+}
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 0;
+    }
+
+    .form-container {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, rgba(236, 234, 110, 1),rgba(243, 160, 92, 1), rgba(142, 95, 163, 1));
+      max-width: 430px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      height: 60px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #b22222;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #8b1a1a;
+    }
+
+    .alert {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .back-home-btn {
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="form-container">
+    <h2>Add Ingredient</h2>
+
+    <!-- Messages -->
+    {% if errormsg %}
+      <div class="alert alert-danger">{{ errormsg }}</div>
+    {% endif %}
+    {% if success %}
+      <div class="alert alert-success">{{ success }}</div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <label>Ingredient Name:</label>
+      <input type="text" name="name" placeholder="e.g. Paneer, cubed" required>
+
+      <label>Quantity:</label>
+      <input type="text" name="quantity" placeholder="e.g. 200g, 2 tbsp" required>
+
+      <label>Unit:</label>
+      <select name="unit" required>
+        <option value="">Select Unit</option>
+        <option value="g">grams</option>
+        <option value="kg">kilograms</option>
+        <option value="ml">milliliters</option>
+        <option value="cup">cup</option>
+        <option value="tbsp">tablespoon</option>
+        <option value="tsp">teaspoon</option>
+        <option value="pcs">pieces</option>
+      </select>
+
+      <label>Price:</label>
+      <input type="number" step="0.01" name="prize" placeholder="Enter price" required>
+
+      <label>MRP:</label>
+      <input type="number" step="0.01" name="mrp" placeholder="Enter MRP" required>
+
+      <label>Discount (%):</label>
+      <input type="number" step="0.01" name="discount" placeholder="Enter discount percentage" required>
+
+      <label>Note (optional):</label>
+      <input type="text" name="note" placeholder="e.g. fresh or frozen">
+
+      <label>Ingredients:</label>
+      <textarea id="ingredients" name="ingredients" rows="4" placeholder="List all ingredients..." required></textarea>
+
+      <label>Full Recipe:</label>
+      <textarea id="recipe" name="recipe" rows="6" placeholder="Write complete recipe steps..." required></textarea>
+
+      <label>Upload Image:</label>
+      <input type="file" name="image" accept="image/*">
+
+      <button type="submit">Add Ingredient</button>
+    </form>
+
+    <div class="back-home-btn">
+      <a href="{% url 'index' %}" class="btn btn-secondary">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
+{% endblock main %}

@@ -1,0 +1,115 @@
+/* Header navbar styles: spacing, typography, responsiveness */
+
+.navbar-brand .brand-text {
+	font-weight: 700;
+	letter-spacing: 0.2px;
+	color: #fff;
+}
+
+.navbar {
+	padding-top: 0.85rem;
+	padding-bottom: 0.85rem;
+}
+
+.navbar-brand img {
+	border-radius: 6px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+
+	/* Extra-specific selectors to override Bootstrap link styles */
+	.navbar .navbar-nav > .nav-item > .nav-link:hover,
+	.navbar .navbar-nav > .nav-item > .nav-link:focus {
+	  color: #ff9f1c !important;
+	}
+
+	.navbar .navbar-nav > .nav-item > .nav-link.active {
+	  color: #ff8c00 !important;
+	}
+.navbar-nav .nav-link {
+	color: #ff8c00 !important; /* orange */
+	margin-right: 6px;
+	padding: 0.35rem 0.5rem;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+	color: #ff9f1c !important; /* lighter orange */
+	text-decoration: none;
+}
+
+/* Search form small adjustments */
+form[role="search"] input.form-control {
+	min-width: 300px;
+	max-width: 420px;
+}
+
+form[role="search"] .btn {
+	white-space: nowrap;
+}
+
+/* Cart badge */
+.navbar .badge {
+	font-size: 0.72rem;
+	padding: 0.25rem 0.45rem;
+}
+
+/* Make navbar more compact on small screens */
+@media (max-width: 767.98px) {
+	.navbar-nav .nav-link {
+		padding: 0.4rem 0.25rem;
+	}
+	form[role="search"] input.form-control {
+		min-width: 120px;
+		max-width: 160px;
+	}
+	.navbar-brand .brand-text {
+		font-size: 0.95rem;
+	}
+}
+
+/* Ensure navbar elements align nicely */
+.navbar .container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.navbar .me-auto {
+	margin-right: 1rem !important;
+}
+
+.brand-text {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* subtle focus outline for accessibility */
+.nav-link:focus {
+	outline: 2px dashed rgba(255,193,7,0.35);
+	outline-offset: 3px;
+}
+ 
+
+
+/* Header Navbar */
+.navbar-brand .brand-text {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #fff;
+}
+
+/* Sub Navbar */
+nav.bg-light .nav-link {
+  transition: all 0.3s ease;
+}
+
+nav.bg-light .nav-link:hover {
+  color: #f36a08;
+  text-decoration: underline;
+}
+
+/* Make the sub navbar slightly smaller */
+nav.bg-light {
+  font-size: 0.9rem;
+}

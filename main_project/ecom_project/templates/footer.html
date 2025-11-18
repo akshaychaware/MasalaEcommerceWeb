@@ -1,0 +1,112 @@
+{% load static %}
+<footer id="site-footer" class="bg-dark text-light pt-5">
+  <link rel="stylesheet" href="{% static 'assets/css/footer.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"rel="stylesheet"/>
+  <style>
+    .a{
+      height: 84px;
+      width: 84px;
+    }
+    a{
+      color: white;
+      text-decoration: none;
+      
+      
+    }
+    a:hover{
+      color: orange;
+    }
+   
+  </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        <h5>Products</h5>
+        <ul class="list-unstyled small">
+          <li>Biozyme Performance Whey</li>
+          <li>Biozyme Whey PR</li>
+          <li>Raw Whey Protein</li>
+          <li>High Protein Oats</li>
+          <li>Super Gainer XXL</li>
+          <li>Creatine</li>
+          <li>High Protein Muesli</li>
+          <li>MB Multivitamin</li>
+          <li>Biozyme Iso-Zero</li>
+          <li>Fish Oil</li>
+          <li>Pre Workout WrathX</li>
+          <li>High Protein Peanut Butter</li>
+          <li>Biozyme Gold 100% Whey</li>
+          <li>Protein Bars</li>
+          <li>Ayurveda for Performance</li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h5>Categories</h5>
+        <ul class="list-unstyled small">
+          <li>Proteins</li>
+          <li>Gainers</li>
+          <li>Pre/Post Workout</li>
+          <li>Ayurveda</li>
+          <li>Fit Foods</li>
+          <li>Vitamin Supplements</li>
+          <li>Fat Loss</li>
+          <li>Fitness Accessories</li>
+          <li>Apparel Overall</li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h5>Useful Links</h5>
+        <ul class="list-unstyled small useful-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Trade Partners</a></li>
+          <li><a href="#">T &amp; C</a></li>
+          <li><a href="#">MB Coupons</a></li>
+          <li><a href="#">BGreen</a></li>
+          <li><a href="#">MB Fuel One</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Return Refund</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Business Enquiry</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h5>Subscribe to Newsletter</h5>
+        <form class="mb-3" action="#" method="post">
+          {% csrf_token %}
+          <div class="mb-2">
+            <label for="footer-email" class="form-label small">Your Email</label>
+            <input id="footer-email" name="email" type="email" class="form-control form-control-sm" placeholder="abc@gmail.com"  >
+          </div>
+          <button type="submit" class="btn btn-warning btn-sm">Submit</button>
+        </form>
+
+        <h6 class="mt-4">Contact</h6>
+        <p class="small mb-1">+91 11 222 33 444</p>
+        <i class="ri-twitter-line" class="a"></i>
+        <i class="ri-facebook-circle-line" class="a"></i>
+        <i class="ri-instagram-line" class="a"></i>
+        <i class="ri-whatsapp-line" class="a"></i>
+
+        <p class="small mb-1">abc@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="row mt-3 pt-3 border-top border-secondary" >
+    
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="col-md-8 small text-center">
+          <p class="mb-1">Checked 100% Safe &amp; Secure payments</p>
+          <p class="mb-1">All MuscleBlaze products are manufactured at FSSAI approved manufacturing facilities and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+        </div>
+      </div>
+      <div class="col-md-4 text-md-end small">
+       
+      </div>
+    </div>
+  </div>
+</footer>

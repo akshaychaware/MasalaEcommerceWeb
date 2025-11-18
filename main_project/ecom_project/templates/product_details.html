@@ -1,0 +1,317 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block main %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }} - Product Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .star-rating {
+            font-size: 1.5rem;
+            color: #ffc107; /* Gold */
+        }
+        table,th,td{
+            border: 1px solid black;
+            padding: 6px ;
+            margin-left: 40px;
+            margin-right: 20px;
+
+
+        }
+        table,th{
+            text-align: center;
+        }
+        body {
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  .main-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .rating-stars i {
+    color: #ffb400;
+  }
+  .review-box {
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  .progress {
+    height: 6px;
+  }
+  .small-text {
+    font-size: 14px;
+    color: gray;
+  }
+  body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #f3e5fcff;
+      color: #2c2c2c;
+      line-height: 1.7;
+    }
+
+    .main-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    h1, h2 {
+      color: #b33c00;
+      text-align: center;
+    }
+
+    .ingredients, .recipe {
+      margin-top: 25px;
+    }
+
+    ul, ol {
+      padding-left: 25px;
+    }
+
+    .divider {
+      border-top: 2px dashed #e0c097;
+      margin: 25px 0;
+    }
+
+    .highlight {
+      background-color: #fff3cd;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f9e4bc;
+    }
+
+    .emoji {
+      font-size: 1.3rem;
+    }
+    #ProductImageCard{
+      width:100%%;
+       height:580px;
+        object-fit:cover;
+    }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ product.img.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow-sm" id="ProductImageCard" >
+        </div>
+        <div class="col-md-6">
+            <h3 class="fs-4">{{ product.name }}</h3>
+            <p><strong class="card-text text-danger">Price: ₹{{ product.prize }}</strong> ₹<del>{{ product.mrp }}</del> <strong class="card-text text-success">{{product.discount}}% off</strong></p>
+            <!-- Dummy Star Rating (5 stars filled) -->
+            <div class="star-rating mb-3" aria-label="Rating">
+                
+            </div>
+                <!-- Success and Error Messages -->
+            {% if errormsg %}
+            <div class="alert alert-danger mt-3">{{ errormsg }}</div>
+            {% endif %}
+            {% if success %}
+            <div class="alert alert-success mt-3">{{ success }}</div>
+            {% endif %}
+
+                        <!-- Add to Cart Button -->
+                        
+            
+
+            <!-- Buttons -->
+            <form method="post" action="{% url 'addtocart' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary me-2">Add to Cart</button>
+
+                <button type="button" class="btn btn-warning"><a href="{% url 'cartt' %}">Buy Now</a></button>
+            </form>
+            <div class="offer-section container my-4 p-4">
+                <h4 class="offer-title mb-3">Offers & Benefits</h4>
+                <p class="offer-subtext text-muted">(Available the offers on cart)</p>
+
+                <div class="offer-box p-3 mt-3">
+                    <label for="offerSelect" class="form-label fw-semibold">Select Offer</label>
+                    <select id="offerSelect" class="form-select mb-3">
+                    <option selected>Extra 4% Off on Prepaid Orders</option>
+                    <option>Buy 1 Get 1 Free</option>
+                    <option>Flat ₹100 Off on Orders Above ₹999</option>
+                    <option>Free Shipping on Orders Above ₹499</option>
+                    </select>
+
+                    <div class="offer-details d-flex align-items-center justify-content-between">
+                    <div>
+                        <p class="mb-1 fw-semibold text-success">Extra 4% Off on Prepaid Orders</p>
+                        <p class="text-muted small mb-0">Use code: <strong>GAINX5</strong></p>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCoupon()">Copy Code</button>
+                        
+                    </div>
+                    </div>
+
+                    <p class="text-muted mt-2 small">
+                    <a href="#" class="text-decoration-none">T & C</a>
+                    </p>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button  type="button" class="btn btn-warning"><a href="{% url 'cartt' %}" >View Cart</a></button>
+                    </div>
+                    <a href="{% url 'index' %}" class="btn btn-secondary mt-4 d-block">← Back to Home</a>
+                </div>
+            </div>     
+        </div>
+    </div>
+
+
+  <div class="main-container">
+    
+    <h1>🌿 Ingredients List</h1>
+    <p><em>(This list is typical for a {{product.name}} and should be verified against your actual recipe.)</em></p>
+
+    <div class="ingredients">
+      <p>
+        Coriander, Cumin, Red Chili, Turmeric, Dry Mango Powder (Amchur), Black Salt, White Salt, 
+        Bay Leaf, Fenugreek Leaves (Kasoori Methi), Black Cardamom, Green Cardamom, Cinnamon, Cloves, 
+        Ginger Powder, Garlic Powder, Nutmeg, Mace, Star Anise, Dry Ginger, Asafoetida (Hing).
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="recipe">
+      <h2>👨🍳 Authentic Gaanv Recipe: {{product.name}}</h2>
+      <p><strong>Recipe for 4 Servings</strong></p>
+
+      <table>
+        <tr><th>Quantity</th><th>Item</th></tr>
+        <tr><td>200g (1 cup)</td><td>{{product.name}}</td></tr>
+        <tr><td>2 large</td><td>Onions, finely chopped</td></tr>
+        <tr><td>2 large</td><td>Tomatoes, pureed</td></tr>
+        <tr><td>1 tbsp</td><td>Ginger-Garlic Paste</td></tr>
+        <tr><td>2-3 tbsp</td><td>Gaanv Ka Swaad {{product.name}}</td></tr>
+        <tr><td>To Taste</td><td>Salt</td></tr>
+        <tr><td>2-3 tbsp</td><td>Oil/Ghee</td></tr>
+      </table>
+
+      <h3>Method (विधि):</h3>
+      <ol>
+        <li><strong>Preparation:</strong> Wash {{product.name}} thoroughly and soak overnight. Pressure cook with 4 cups of water and a pinch of salt until soft (5–6 whistles). Set aside.</li>
+        <li><strong>Sauté:</strong> Heat oil/ghee in a pan. Add chopped onions and fry until golden brown. Add ginger-garlic paste and sauté for one minute.</li>
+        <li><strong>Gravy Base:</strong> Add the tomato puree and cook until the oil separates from the mixture.</li>
+        <li><strong>Spice Magic:</strong> Lower the heat. Add <span class="highlight">Gaanv Ka Swaad {{product.name}}</span> and salt (if needed). Fry for 2 minutes, adding a splash of the Rajma cooking water to prevent burning.</li>
+        <li><strong>Finish:</strong> Add the boiled Rajma along with its water (adjust for desired consistency). Bring to a boil, then cover and simmer for 15–20 minutes to blend flavors.</li>
+        <li><strong>Serve:</strong> Garnish with fresh coriander. Serve hot with steamed rice (Chawal) or roti.</li>
+      </ol>
+    </div>
+  </div>
+
+
+<div class="main-container">
+  <h4 class="text-center fw-bold mb-4">{{product.name}} Reviews</h4>
+
+  <div class="row">
+    <!-- Left Section -->
+    <div class="col-md-4">
+      <h6 class="fw-bold text-secondary">Customer Reviews</h6>
+      <h3>4.4 ⭐⭐⭐⭐☆</h3>
+      <p class="small-text">Based on 1,898 customer ratings</p>
+
+      <div>
+        <p class="mb-1">5 star <span class="float-end">65%</span></p>
+        <div class="progress"><div class="progress-bar bg-warning" style="width:65%"></div></div>
+
+        <p class="mb-1 mt-2">4 star <span class="float-end">22%</span></p>
+        <div class="progress"><div class="progress-bar bg-warning" style="width:22%"></div></div>
+
+        <p class="mb-1 mt-2">3 star <span class="float-end">5%</span></p>
+        <div class="progress"><div class="progress-bar bg-warning" style="width:5%"></div></div>
+
+        <p class="mb-1 mt-2">2 star <span class="float-end">2%</span></p>
+        <div class="progress"><div class="progress-bar bg-warning" style="width:2%"></div></div>
+
+        <p class="mb-1 mt-2">1 star <span class="float-end">6%</span></p>
+        <div class="progress"><div class="progress-bar bg-warning" style="width:6%"></div></div>
+      </div>
+
+      <hr>
+
+      <p>Taste ⭐⭐⭐⭐☆ <span class="float-end">4.4</span></p>
+      <p>Mixability ⭐⭐⭐⭐☆ <span class="float-end">4.3</span></p>
+      <p>Efficacy ⭐⭐⭐⭐☆ <span class="float-end">4.2</span></p>
+      <p>Value for money ⭐⭐⭐⭐☆ <span class="float-end">4.4</span></p>
+    </div>
+
+    <!-- Right Section -->
+    <div class="col-md-8">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="fw-bold mb-0">All Flavour (1,898 reviews)</p>
+        <select class="form-select form-select-sm w-auto">
+          <option selected>Sort by: All</option>
+        </select>
+      </div>
+
+      <div class="review-box">
+        <p class="fw-bold mb-1">Vikas Singh Gaur ⭐⭐⭐⭐⭐</p>
+        <p class="small-text mb-1">Apr 11, 2018 • 6.6 lb Cookies & Cream</p>
+        <p><strong>{{product.name}} only {{product.prize}}Rs? wow</strong></p>
+        <p>"Rich, flavorful, and just like homemade! The <strong>Gaanv Ka Swaad {{product.name}}</strong> gives a perfect earthy aroma and taste — absolutely loved it with steamed basmati rice."</p>
+
+        <p class="small-text">57 people found this helpful</p>
+        <button class="btn btn-outline-secondary btn-sm">Helpful</button>
+        <button class="btn btn-outline-secondary btn-sm">Report Abuse</button>
+      </div>
+
+      <div class="review-box">
+        <p class="fw-bold mb-1">User ⭐⭐⭐⭐⭐</p>
+        <p class="small-text mb-1">Nov 15, 2017 • 4.4 lb Chocolate</p>
+        <p><strong>Nice product</strong></p>
+        <p><strong>Tip:</strong> For creamier texture, mash a few {{product.name}} before simmering.  
+      You can also add a spoon of fresh cream at the end for restaurant-style finish.</p>
+        <button class="btn btn-outline-secondary btn-sm">Helpful</button>
+        <button class="btn btn-outline-secondary btn-sm">Report Abuse</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div><a href="https://www.mangalmasala.com/" class="btn btn-dark mt-4 d-block">Go to official page</a></div>
+<div>       
+<script>
+    function copyCoupon() {
+        navigator.clipboard.writeText("GAINX5");
+        alert("Coupon code GAINX5 copied!");
+    }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+{% endblock %}
