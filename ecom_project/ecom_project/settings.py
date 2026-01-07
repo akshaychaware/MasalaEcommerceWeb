@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-005rsc&$^h^edp6b5dt7(z6qjgnp2xzl8+428e9$mm0-j5vb7=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*",'127.0.0.1', 'localhost', 'vernia-toyless-dusti.ngrok-free.dev']
+ALLOWED_HOSTS = ['*','127.0.0.1', 'localhost', 'vernia-toyless-dusti.ngrok-free.dev']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
