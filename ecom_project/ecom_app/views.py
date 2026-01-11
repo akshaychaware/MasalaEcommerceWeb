@@ -1,6 +1,6 @@
 from genericpath import exists
 from random import randrange
-
+from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
@@ -257,3 +257,64 @@ def index(request):
 
     context = {'suppliment': products, 'query': query}
     return render(request, 'index.html', context)
+
+
+
+
+
+
+
+
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+
+def users_api(request):
+    token = request.headers.get("X-API-KEY")
+
+    if token != settings.API_SECRET_KEY:
+        return JsonResponse({"error": "Unauthorized"}, status=401)
+
+    users = User.objects.all().values(
+        'id', 'username', 'email', 'date_joined'
+    )
+    return JsonResponse(list(users), safe=False)
+
+
+
+
+
+
+# import requests
+# import mysql.connector
+
+# API_URL = "https://your-render-app.onrender.com/api/users/"
+# HEADERS = {
+#     "X-API-KEY": "SECRET123"
+# }
+
+# db = mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="yourpassword",
+#     database="local_db"
+# )
+
+# cursor = db.cursor()
+
+# response = requests.get(API_URL, headers=HEADERS)
+# users = response.json()
+
+# for u in users:
+#     cursor.execute("""
+#         INSERT IGNORE INTO users
+#         (id, username, email, date_joined)
+#         VALUES (%s, %s, %s, %s)
+#     """, (
+#         u['id'],
+#         u['username'],
+#         u['email'],
+#         u['date_joined']
+#     ))
+
+# db.commit()
+# print("Users synced successfully")
