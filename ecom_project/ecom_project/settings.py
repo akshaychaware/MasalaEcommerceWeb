@@ -76,23 +76,23 @@ WSGI_APPLICATION = 'ecom_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default':{
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'muscle_blaze',
-#         'USER': 'root',
-#         'PASSWORD': 'akshay810479',
-#         'PORT': '3306',
-#         'HOST': 'localhost',
-
+#     'default':{
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MasalaWebApp',
+        'USER': 'root',
+        'PASSWORD': 'akshay810479',
+        'PORT': '3306',
+        'HOST': 'localhost',
+
+    }
+ }
 
 
 # Password validation

@@ -56,7 +56,7 @@ def user_register(request):
         ucpsw = request.POST.get('ucpsw')
         context={}
         if uname=="" or upsw=="" or ucpsw=="" or uemail=="" :
-            context['errormsg']="feilds cannot be empty.."
+            context['errormsg']="fields cannot be empty.."
             return render(request,'register.html',context)
         elif upsw != ucpsw:
             context['errormsg']="password and confirm password didn't match.."
@@ -119,7 +119,7 @@ def cartt(request):
     c=cart.objects.filter(uid=uid)
     np=len(c)
     for p in c:
-        t=t+p.pid.prize*p.qty
+        t=t+p.pid.prize*p.qty # type: ignore
     context['Masala']=c
     context['n']=np
     context['total']=t
@@ -165,7 +165,7 @@ def placeorder(request):
     np = len(orders)
     s = 0
     for p in orders:
-        s = s + p.pid.prize * p.qty
+        s = s + p.pid.prize * p.qty # type: ignore
     context['total'] = s
     context['n'] = np     
 
@@ -184,7 +184,7 @@ def pay(request):
         orders = order.objects.filter(uid=request.user.id, order_id=oid)
 
         for p in orders:
-            s = s + p.pid.prize * p.qty
+            s = s + p.pid.prize * p.qty # type: ignore
             print(s)
 
         client = razorpay.Client(auth=("rzp_test_RTGbk96sQcEcoy", "YN3eqOZMp7bAAGzI7cVJnxvd")) # type: ignore
