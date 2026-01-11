@@ -37,6 +37,8 @@ urlpatterns = [
     path('placeorder/',v.placeorder,name='placeorder'),
     path('pay/',v.pay, name='pay'),
     path('add-ingredient/', v.add_ingredient, name='add_ingredient'),
+
+    path("api/users/",v.users_api),
     
 
  
