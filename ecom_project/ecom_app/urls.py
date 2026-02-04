@@ -35,7 +35,7 @@ urlpatterns = [
     path('updateqty/<qv>/<cid>/',v.updateqty, name="updateqty"),
     path('removepc/<cid>',v.removepc, name="removepc"),
     path('placeorder/',v.placeorder,name='placeorder'),
-    path('pay/',v.pay, name='pay'),
+    path('pay/<int:oid>/',v.pay, name='pay'),
     path('add-ingredient/', v.add_ingredient, name='add_ingredient'),
 
     path("api/users/",v.users_api),

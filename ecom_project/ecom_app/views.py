@@ -36,7 +36,7 @@ def user_login(request):
             return render(request,'login.html',context)
         else:
             u=authenticate(username=uname,password=upsw)
-            #print(u)
+            print(u)    #none / admin
             if u is not None:
                 login(request,u)    
                 return redirect('index')
@@ -84,7 +84,7 @@ def user_logout(request):
 def product_details(request , pid):
 
     context = {}
-    p =  Masala.objects.get(id = pid)
+    p =  Masala.objects.get(id = pid)  #django auto generate karto id 
     context['product'] = p
     # print(m)
 
@@ -114,25 +114,22 @@ def addtocart(request, pid):
 
 def cartt(request):
     context={}
-    t=0
+    total_amount=0
     uid=request.user.id
     c=cart.objects.filter(uid=uid)
-    np=len(c)
+    num_product=len(c)
     for p in c:
-        t=t+p.pid.prize*p.qty # type: ignore
+        total_amount=total_amount+p.pid.prize*p.qty # type: ignore
     context['Masala']=c
-    context['n']=np
-    context['total']=t
+    context['n']=num_product
+    context['total']=total_amount
     return render(request,'cart.html',context)
-
 
 def updateqty(request,qv,cid):
     cart_items=cart.objects.filter(id=cid)
     if not cart_items:
         return redirect('cartt')
-    
     cart_item=cart_items[0]   #get the single cart object
-
     if qv=='1':
         #increase quantity by 1
         cart_item.qty=cart_item.qty+1
@@ -169,29 +166,37 @@ def placeorder(request):
     context['total'] = s
     context['n'] = np     
 
-    return render(request, "place_order.html", context)
+    return redirect( pay, oid=oid)
 
 
-
-def pay(request):
+def pay(request, oid):
     context = {}
     s = 0
 
-    orders = order.objects.filter(uid=request.user.id).order_by('-order_id')
+    orders = order.objects.filter(uid=request.user.id, order_id=oid)
 
-    if orders:
-        oid = orders[0].order_id  
-        orders = order.objects.filter(uid=request.user.id, order_id=oid)
+    if not orders:
+        return redirect('cartt')
 
-        for p in orders:
-            s = s + p.pid.prize * p.qty # type: ignore
-            print(s)
+    for p in orders:
+        s += p.pid.prize * p.qty
 
-        client = razorpay.Client(auth=("rzp_test_RTGbk96sQcEcoy", "YN3eqOZMp7bAAGzI7cVJnxvd")) # type: ignore
-        data = { "amount": s*100, "currency": "INR", "receipt": "order_rcptid_" + str(oid) }
-        payment = client.order.create(data=data) # type: ignore
-        print(payment)
-        context['data'] = payment
+    print("FINAL PAY AMOUNT:", s)
+
+    client = razorpay.Client(
+        auth=("rzp_test_RTGbk96sQcEcoy", "YN3eqOZMp7bAAGzI7cVJnxvd")
+    )
+
+    data = {
+        "amount": int(s * 100),
+        "currency": "INR",
+        "receipt": f"order_rcptid_{oid}"
+    }
+
+    payment = client.order.create(data=data) # type: ignore
+
+    context['data'] = payment
+    context['id'] = payment['id']
 
     return render(request, 'pay.html', context)
 

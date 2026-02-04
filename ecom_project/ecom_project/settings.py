@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-005rsc&$^h^edp6b5dt7(z6qjgnp2xzl8+428e9$mm0-j5vb7=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','127.0.0.1', 'localhost', 'vernia-toyless-dusti.ngrok-free.dev']
+ALLOWED_HOSTS = ['*','127.0.0.1', 'DESKTOP-959DQ69','localhost', 'vernia-toyless-dusti.ngrok-free.dev']
 
 
 # Application definition
@@ -89,7 +89,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'akshay810479',
         'PORT': '3306',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
 
     }
  }
