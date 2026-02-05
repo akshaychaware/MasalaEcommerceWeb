@@ -2,8 +2,6 @@
 
 A dynamic ecommerce web application where users can browse products, place orders, and make online payments.
 
-## 🚀 Live Demo
-https://masalaecommerceweb.onrender.com/
 
 ## 🛠 Tech Stack
 - Python
