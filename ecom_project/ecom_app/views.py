@@ -272,6 +272,8 @@ def index(request):
 
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.views.decorators.http import require_POST
+import requests
 
 def users_api(request):
     token = request.headers.get("X-API-KEY")
@@ -284,5 +286,65 @@ def users_api(request):
     )
     return JsonResponse(list(users), safe=False)
 
+
+@require_POST
+def ask_masala_ai(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "Please login first."}, status=401)
+
+    prompt = request.POST.get("prompt", "").strip()
+
+    if not prompt:
+        return JsonResponse({"error": "Please enter your question."}, status=400)
+
+    masala_related_keywords = [
+        "masala", "spice", "garam", "biryani", "curry", "chhole", "pav bhaji", "tandoori", "chat", "kitchen king"
+    ]
+    lower_prompt = prompt.lower()
+    is_masala_question = any(word in lower_prompt for word in masala_related_keywords)
+
+    if not is_masala_question:
+        return JsonResponse(
+            {
+                "answer": "Main sirf masala aur spice related sawaalon ka jawab de sakta hoon."
+            },
+            status=200,
+        )
+
+    ai_api_url = settings.MASALA_AI_API_URL
+    headers = {"Content-Type": "application/json"}
+
+    if settings.MASALA_AI_API_KEY:
+        headers["Authorization"] = f"Bearer {settings.MASALA_AI_API_KEY}"
+
+    payload = {
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a masala expert assistant. Answer only about masala/spices and politely refuse any other topic.",
+            },
+            {"role": "user", "content": prompt},
+        ]
+    }
+
+    try:
+        response = requests.post(ai_api_url, json=payload, headers=headers, timeout=20)
+        response.raise_for_status()
+        data = response.json()
+    except requests.RequestException:
+        return JsonResponse(
+            {"error": "AI service is not reachable right now. Please try again."},
+            status=503,
+        )
+
+    answer = (
+        data.get("answer")
+        or data.get("response")
+        or data.get("content")
+        or data.get("message")
+        or "Masala info abhi available nahi hai."
+    )
+
+    return JsonResponse({"answer": answer})
 
 

@@ -146,3 +146,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 API_SECRET_KEY = "AKSHAY-SECRET-KEY"
+
+MASALA_AI_API_URL = os.environ.get("MASALA_AI_API_URL", "http://127.0.0.1:8001/api/chat/")
+MASALA_AI_API_KEY = os.environ.get("MASALA_AI_API_KEY", "")
