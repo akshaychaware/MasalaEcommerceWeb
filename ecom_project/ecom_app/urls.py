@@ -39,6 +39,7 @@ urlpatterns = [
     path('add-ingredient/', v.add_ingredient, name='add_ingredient'),
 
     path("api/users/",v.users_api),
+    path("api/ask-masala-ai/", v.ask_masala_ai, name="ask_masala_ai"),
     
 
  

@@ -37,7 +37,12 @@
         <button class="btn btn-outline-light btn-sm" type="submit">Search</button>
       </form>
 
-      <ul class="navbar-nav mb-2 mb-lg-0">
+      <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+        {% if user.is_authenticated %}
+        <li class="nav-item me-2">
+          <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#askAiModal">Ask AI</button>
+        </li>
+        {% endif %}
         <li class="nav-item me-2">
           <a class="nav-link position-relative" href="{% url 'cartt' %}">
             <i class="bi bi-cart3"></i> Cart
@@ -46,10 +51,10 @@
         </li>
         <li class="nav-item me-2">
            {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
                 {% endif %}
 
         </li>
@@ -86,3 +91,76 @@
     </ul>
   </div>
 </nav>
+
+{% if user.is_authenticated %}
+<div class="modal fade" id="askAiModal" tabindex="-1" aria-labelledby="askAiModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="askAiModalLabel">Ask Masala AI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <textarea id="aiPrompt" class="form-control mb-3" rows="4" placeholder="explore new masala's"></textarea>
+        <button id="aiSendBtn" class="btn btn-dark">Send</button>
+        <div id="aiReply" class="mt-3 small"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function getCsrfToken() {
+    const name = 'csrftoken=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookies = decodedCookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      if (cookie.indexOf(name) === 0) {
+        return cookie.substring(name.length, cookie.length);
+      }
+    }
+    return '';
+  }
+
+  const aiSendBtn = document.getElementById('aiSendBtn');
+  const aiPrompt = document.getElementById('aiPrompt');
+  const aiReply = document.getElementById('aiReply');
+
+  if (aiSendBtn) {
+    aiSendBtn.addEventListener('click', async function () {
+      const prompt = aiPrompt.value.trim();
+      if (!prompt) {
+        aiReply.innerHTML = '<span class="text-danger">Please enter your question.</span>';
+        return;
+      }
+
+      aiReply.innerHTML = '<span class="text-secondary">Thinking...</span>';
+
+      const formData = new FormData();
+      formData.append('prompt', prompt);
+
+      try {
+        const response = await fetch("{% url 'ask_masala_ai' %}", {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': getCsrfToken(),
+          },
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          aiReply.innerHTML = `<span class="text-danger">${data.error || 'Unable to get response.'}</span>`;
+          return;
+        }
+
+        aiReply.innerHTML = `<strong>AI:</strong> ${data.answer}`;
+      } catch (error) {
+        aiReply.innerHTML = '<span class="text-danger">Unable to connect with AI right now.</span>';
+      }
+    });
+  }
+</script>
+{% endif %}
